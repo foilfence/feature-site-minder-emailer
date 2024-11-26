@@ -94,6 +94,8 @@ Whitelisting is implemented by both APIs to the point where only non-free provid
 
 ## Future Enhancements
 
+Reconcile the differing behavior of each provider for a failed transaction, avoiding the need for slightly identical else and catch scenarios to cover fail-safe logic
+
 Allow selection of default provider in docker environment variables, without the need to redeploy when reselecting default
 
 Allow enabling / disabling of providers in properties
