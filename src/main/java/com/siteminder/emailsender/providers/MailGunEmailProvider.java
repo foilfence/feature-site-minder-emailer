@@ -77,22 +77,17 @@ public class MailGunEmailProvider implements EmailProvider {
         final HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(requestBody, headers);
 
         // Send the request
-//        try {
-            final ResponseEntity<String> response = restTemplate.postForEntity(url, entity, String.class);
+        final ResponseEntity<String> response = restTemplate.postForEntity(url, entity, String.class);
 
-            if (response.getStatusCode().is2xxSuccessful()) {
-                logger.info("Email sent successfully.");
-                return new EmailResponse(true, "Email sent successfully");
-            } else {
-                logger.error("Failed to send email. Status: {}, Body: {}",
-                        response.getStatusCodeValue(),
-                        response.getBody());
-                return new EmailResponse(false, "Failed to send email: " + response.getBody());
-            }
-//        } catch (Exception e) {
-//            logger.error("Error occurred while sending email: {}", e.getMessage(), e);
-//            return new EmailResponse(false, "Error occurred while sending email: " + e.getMessage());
-//        }
+        if (response.getStatusCode().is2xxSuccessful()) {
+            logger.info("Email sent successfully.");
+            return new EmailResponse(true, "Email sent successfully");
+        } else {
+            logger.error("Failed to send email. Status: {}, Body: {}",
+                    response.getStatusCodeValue(),
+                    response.getBody());
+            return new EmailResponse(false, "Failed to send email: " + response.getBody());
+        }
     }
     
 	/**

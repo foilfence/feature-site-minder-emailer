@@ -36,9 +36,15 @@ public class EmailServiceImpl implements EmailService {
         EmailResponse resp;
         try {
             resp = provider.send(emailRequest);
-//            if (resp.isSuccess()) {
-//                return resp;
-//            }
+            if (resp.isSuccess()) {
+                return resp;
+            } else {
+                for (EmailProvider fallback : providerRegistry.getAllProviders().values()) {
+                    if (fallback != provider) {
+                        return fallback.send(emailRequest);
+                    }
+                }
+            }
         } catch (Exception ex) {
             // Attempt fallback with all other providers
             for (EmailProvider fallback : providerRegistry.getAllProviders().values()) {
@@ -58,4 +64,5 @@ public class EmailServiceImpl implements EmailService {
 
         return resp;
     }
+
 }

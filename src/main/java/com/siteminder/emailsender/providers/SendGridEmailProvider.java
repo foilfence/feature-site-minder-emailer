@@ -44,7 +44,7 @@ public class SendGridEmailProvider implements EmailProvider {
 	
     @PostConstruct
     public void init() {
-//    	emailProviderRegistry.registerProvider("sendgrid", this);
+    	emailProviderRegistry.registerProvider("sendgrid", this);
     }
 
 
@@ -86,13 +86,12 @@ public class SendGridEmailProvider implements EmailProvider {
             request.setBody(mail.build());
             final Response response = sg.api(request);
             
-            System.out.println(response.getStatusCode());
-            
             if (response.getStatusCode() == 202) {
                 logger.info("Email sent successfully. Status: {}, Body: {}, Headers: {}",
                         response.getStatusCode(), response.getBody(), response.getHeaders());
                 return new EmailResponse(true, "Email sent successfully via SendGrid.");
-            } else {
+            }
+            else {
                 logger.error("Failed to send email. Status: {}, Body: {}, Headers: {}",
                         response.getStatusCode(), response.getBody(), response.getHeaders());
                 return new EmailResponse(false, "Failed to send email via SendGrid. Status: " + response.getStatusCode());
