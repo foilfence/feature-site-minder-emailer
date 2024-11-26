@@ -1,7 +1,7 @@
 # Siteminder Email Sender Exercise
 ## How to Run Locally
 
-Create a file `application.properties` in your ``src/java/resources folder`` and provide the following parameters:
+Create a file `application.properties` in your ``src/main/resources folder`` and provide the following parameters:
 
 ```
 spring.application.name=emailsender
