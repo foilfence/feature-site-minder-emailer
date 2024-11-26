@@ -100,6 +100,8 @@ Allow selection of default provider in docker environment variables, without the
 
 Allow enabling / disabling of providers in properties
 
+More robust / complete unit testing rather than the simple checking of transfer of provider as of the moment
+
 Load balancing between providers by using weighted algorithms to distribute requests across multiple providers
 
 Dynamic prioritization based on provider health, limits or response time
