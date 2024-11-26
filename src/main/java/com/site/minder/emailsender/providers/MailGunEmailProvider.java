@@ -2,8 +2,6 @@ package com.site.minder.emailsender.providers;
 
 import java.util.Base64;
 import java.util.List;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -17,6 +15,10 @@ import org.springframework.web.client.RestTemplate;
 
 import com.site.minder.emailsender.model.EmailRequest;
 import com.site.minder.emailsender.model.EmailResponse;
+import com.site.minder.emailsender.registry.EmailProviderRegistry;
+
+import jakarta.annotation.PostConstruct;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,9 +38,18 @@ public class MailGunEmailProvider implements EmailProvider {
 
     @Autowired
     private final RestTemplate restTemplate;
+    
+    @Autowired
+    private final EmailProviderRegistry emailProviderRegistry;
 
-    public MailGunEmailProvider(final RestTemplate restTemplate) {
+    public MailGunEmailProvider(final RestTemplate restTemplate, final EmailProviderRegistry emailProviderRegistry) {
         this.restTemplate = restTemplate;
+		this.emailProviderRegistry = new EmailProviderRegistry();
+    }
+    
+    @PostConstruct
+    public void init() {
+    	emailProviderRegistry.registerProvider("mailgun", this);
     }
 
     @Override

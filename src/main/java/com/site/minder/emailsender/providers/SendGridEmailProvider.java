@@ -6,6 +6,7 @@ import java.util.function.Consumer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +20,9 @@ import com.sendgrid.helpers.mail.objects.Email;
 import com.sendgrid.helpers.mail.objects.Personalization;
 import com.site.minder.emailsender.model.EmailRequest;
 import com.site.minder.emailsender.model.EmailResponse;
+import com.site.minder.emailsender.registry.EmailProviderRegistry;
+
+import jakarta.annotation.PostConstruct;
 
 @Component
 public class SendGridEmailProvider implements EmailProvider {
@@ -30,6 +34,19 @@ public class SendGridEmailProvider implements EmailProvider {
 
     @Value("${sendgrid.from.email}")
     private String fromEmail;
+    
+    @Autowired
+    private final EmailProviderRegistry emailProviderRegistry;
+    
+	public SendGridEmailProvider(final EmailProviderRegistry emailProviderRegistry) {
+		this.emailProviderRegistry = emailProviderRegistry;
+	}
+	
+    @PostConstruct
+    public void init() {
+    	emailProviderRegistry.registerProvider("sendgrid", this);
+    }
+
 
 	@Override
 	public EmailResponse send(final EmailRequest emailRequest) {
@@ -68,9 +85,19 @@ public class SendGridEmailProvider implements EmailProvider {
             request.setEndpoint("mail/send");
             request.setBody(mail.build());
             final Response response = sg.api(request);
-            logger.info("Email sent successfully. Status: {}, Body: {}, Headers: {}",
-                    response.getStatusCode(), response.getBody(), response.getHeaders());
-            return new EmailResponse(true, "Email sent successfully.");
+            
+            System.out.println(response.getStatusCode());
+            
+            if (response.getStatusCode() == 202) {
+                logger.info("Email sent successfully. Status: {}, Body: {}, Headers: {}",
+                        response.getStatusCode(), response.getBody(), response.getHeaders());
+                return new EmailResponse(true, "Email sent successfully via SendGrid.");
+            } else {
+                logger.error("Failed to send email. Status: {}, Body: {}, Headers: {}",
+                        response.getStatusCode(), response.getBody(), response.getHeaders());
+                return new EmailResponse(false, "Failed to send email via SendGrid. Status: " + response.getStatusCode());
+            }
+            
         } catch (IOException ex) {
             logger.error("Error sending email: {}", ex.getMessage(), ex);
             return new EmailResponse(false, "Failed to send email: " + ex.getMessage());

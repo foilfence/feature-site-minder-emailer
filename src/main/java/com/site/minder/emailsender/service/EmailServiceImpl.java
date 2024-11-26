@@ -7,25 +7,48 @@ import com.site.minder.emailsender.model.EmailResponse;
 import com.site.minder.emailsender.providers.EmailProvider;
 import com.site.minder.emailsender.providers.MailGunEmailProvider;
 import com.site.minder.emailsender.providers.SendGridEmailProvider;
+import com.site.minder.emailsender.registry.EmailProviderRegistry;
 
 @Service
 public class EmailServiceImpl implements EmailService {
-    private final EmailProvider mailgunProvider;
-    private final EmailProvider sendGridProvider;
 
-    public EmailServiceImpl(final MailGunEmailProvider mailgunProvider, final SendGridEmailProvider sendGridProvider) {
-        this.mailgunProvider = mailgunProvider;
-        this.sendGridProvider = sendGridProvider;
+	private final EmailProviderRegistry providerRegistry;
+
+    public EmailServiceImpl(final EmailProviderRegistry providerRegistry) {
+        this.providerRegistry = providerRegistry;
     }
 
-	@Override
-	public EmailResponse sendEmail(EmailRequest emailRequest) {
-        try {
-        	//return sendGridProvider.send(emailRequest);
-            return mailgunProvider.send(emailRequest);
-        } catch (Exception ex) {
-            //return sendGridProvider.send(emailRequest); // Fallback to SendGrid
-        	return new EmailResponse(false, "Failed to send email via all providers: " + ex.getMessage());
+    @Override
+    public EmailResponse sendEmail(final EmailRequest emailRequest) {
+        final String providerType = emailRequest.getProviderType();
+        
+        EmailProvider provider = null;
+        if (providerType != null) {
+        	provider = providerRegistry.getProvider(providerType);
         }
-	}
+        
+        if (provider == null) {
+            provider = providerRegistry.getDefaultProvider();
+        }
+
+        if (provider == null) {
+            return new EmailResponse(false, "No email provider available.");
+        }
+
+        try {
+            return provider.send(emailRequest);
+        } catch (Exception ex) {
+            // Attempt fallback with all other providers
+            for (EmailProvider fallback : providerRegistry.getAllProviders().values()) {
+                if (fallback != provider) {
+                    try {
+                        return fallback.send(emailRequest);
+                    } catch (Exception ignored) {
+                        // Log and continue
+                    }
+                }
+            }
+            return new EmailResponse(false, "Failed to send email via all providers: " + ex.getMessage());
+        }
+    }
 }

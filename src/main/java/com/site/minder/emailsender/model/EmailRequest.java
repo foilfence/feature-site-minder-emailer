@@ -23,4 +23,7 @@ public class EmailRequest {
 
     @NotEmpty(message = "Body is required")
     private String body;
+    
+    // Optional provider type, no validation since it's optional
+    private String providerType;
 }
