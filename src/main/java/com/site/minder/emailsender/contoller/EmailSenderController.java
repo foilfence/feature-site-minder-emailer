@@ -28,7 +28,7 @@ public class EmailSenderController {
     }
 
     @PostMapping("/send")
-    public ResponseEntity<String> sendEmail(@RequestBody EmailRequest emailRequest) {
+    public ResponseEntity<String> sendEmail(@Valid @RequestBody EmailRequest emailRequest) {
     	final EmailResponse response = emailService.sendEmail(emailRequest);
         if (response.isSuccess()) {
             return ResponseEntity.ok(response.getMessage());
