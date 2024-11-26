@@ -50,4 +50,12 @@ docker push YOUR-USER-NAME/sm:latest
 ```
 
 ### Deploying on Render
-Create an account and click
+Create an account and afterwards click new web service
+
+![](images/render-image.png)
+
+Enter the url as provided in Docker Hub for example
+
+![](images/docker-hub-image.png)
+
+Choose the free tier and wait for the application to be deployed. The URL will be displayed in the Render dashboard
