@@ -94,6 +94,8 @@ Whitelisting is implemented by both APIs to the point where only non-free provid
 
 ## Future Enhancements
 
+Allow selection of default provider in docker environment variables, without the need to redeploy when reselecting default
+
 Allow enabling / disabling of providers in properties
 
 Load balancing between providers by using weighted algorithms to distribute requests across multiple providers
