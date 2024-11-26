@@ -1,13 +1,11 @@
-package com.site.minder.emailsender.service;
+package com.siteminder.emailsender.service;
 
+import com.siteminder.emailsender.model.EmailRequest;
+import com.siteminder.emailsender.model.EmailResponse;
 import org.springframework.stereotype.Service;
 
-import com.site.minder.emailsender.model.EmailRequest;
-import com.site.minder.emailsender.model.EmailResponse;
-import com.site.minder.emailsender.providers.EmailProvider;
-import com.site.minder.emailsender.providers.MailGunEmailProvider;
-import com.site.minder.emailsender.providers.SendGridEmailProvider;
-import com.site.minder.emailsender.registry.EmailProviderRegistry;
+import com.siteminder.emailsender.providers.EmailProvider;
+import com.siteminder.emailsender.registry.EmailProviderRegistry;
 
 @Service
 public class EmailServiceImpl implements EmailService {

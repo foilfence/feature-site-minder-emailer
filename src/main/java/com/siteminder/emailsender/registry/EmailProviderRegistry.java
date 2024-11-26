@@ -1,8 +1,8 @@
-package com.site.minder.emailsender.registry;
+package com.siteminder.emailsender.registry;
 
 import org.springframework.stereotype.Component;
 
-import com.site.minder.emailsender.providers.EmailProvider;
+import com.siteminder.emailsender.providers.EmailProvider;
 
 import java.util.HashMap;
 import java.util.Map;

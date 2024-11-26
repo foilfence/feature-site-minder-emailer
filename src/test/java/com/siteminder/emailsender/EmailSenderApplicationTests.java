@@ -1,10 +1,10 @@
-package com.site.minder.emailsender;
+package com.siteminder.emailsender;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class EmailsenderApplicationTests {
+class EmailSenderApplicationTests {
 
 	@Test
 	void contextLoads() {

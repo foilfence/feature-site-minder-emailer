@@ -1,4 +1,4 @@
-package com.site.minder.emailsender.model;
+package com.siteminder.emailsender.model;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;

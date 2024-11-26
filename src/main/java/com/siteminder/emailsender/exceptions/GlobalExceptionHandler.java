@@ -1,4 +1,4 @@
-package com.site.minder.emailsender.exceptions;
+package com.siteminder.emailsender.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package com.site.minder.emailsender.model;
+package com.siteminder.emailsender.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

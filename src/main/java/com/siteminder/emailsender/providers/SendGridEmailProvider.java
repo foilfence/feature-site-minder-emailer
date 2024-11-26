@@ -1,9 +1,11 @@
-package com.site.minder.emailsender.providers;
+package com.siteminder.emailsender.providers;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.function.Consumer;
 
+import com.siteminder.emailsender.model.EmailRequest;
+import com.siteminder.emailsender.model.EmailResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +20,7 @@ import com.sendgrid.helpers.mail.Mail;
 import com.sendgrid.helpers.mail.objects.Content;
 import com.sendgrid.helpers.mail.objects.Email;
 import com.sendgrid.helpers.mail.objects.Personalization;
-import com.site.minder.emailsender.model.EmailRequest;
-import com.site.minder.emailsender.model.EmailResponse;
-import com.site.minder.emailsender.registry.EmailProviderRegistry;
+import com.siteminder.emailsender.registry.EmailProviderRegistry;
 
 import jakarta.annotation.PostConstruct;
 

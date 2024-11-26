@@ -1,7 +1,11 @@
-package com.site.minder.emailsender.providers;
+package com.siteminder.emailsender.providers;
 
 import java.util.Base64;
 import java.util.List;
+
+import com.siteminder.emailsender.model.EmailRequest;
+import com.siteminder.emailsender.model.EmailResponse;
+import com.siteminder.emailsender.registry.EmailProviderRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -12,10 +16,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
-
-import com.site.minder.emailsender.model.EmailRequest;
-import com.site.minder.emailsender.model.EmailResponse;
-import com.site.minder.emailsender.registry.EmailProviderRegistry;
 
 import jakarta.annotation.PostConstruct;
 
