@@ -28,4 +28,26 @@ Run: `docker build -t emailsender .`
 
 Once successful, your image will also show up on Docker Desktop:
 
-![](https://imgur.com/a/zeqRo8N)
+![](docker-image.png)
+
+### Uploading our docker image to Docker Hub
+Create an account on Docker Hub (same credentials as Docker works) and also create a repository
+
+Login to Docker Hub using the terminal in docker desktop ```login -u YOUR-USER-NAME```
+
+Alternatively you can also click login when prompted in docker desktop
+
+After that use the docker tag command to give our emailsender service image a new name.
+
+```
+docker tag emailsender YOUR-USER-NAME/sm
+```
+
+We can then push our renamed image onto Docker Hub
+
+```
+docker push YOUR-USER-NAME/sm:latest
+```
+
+### Deploying on Render
+Create an account and click
