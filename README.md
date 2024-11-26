@@ -92,7 +92,7 @@ Errors are returned as JSON Objetcs with field names as keys and validation mess
 
 Whitelisting is implemented by both APIs to the point where only non-free providers are recommended by sendgrid while mailgun requires each recipient to be validated and whitelisted.
 
-## Enhancements
+## Future Enhancements
 
 Allow enabling / disabling of providers in properties
 
