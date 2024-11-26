@@ -77,7 +77,7 @@ public class MailGunEmailProvider implements EmailProvider {
         final HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(requestBody, headers);
 
         // Send the request
-        try {
+//        try {
             final ResponseEntity<String> response = restTemplate.postForEntity(url, entity, String.class);
 
             if (response.getStatusCode().is2xxSuccessful()) {
@@ -89,10 +89,10 @@ public class MailGunEmailProvider implements EmailProvider {
                         response.getBody());
                 return new EmailResponse(false, "Failed to send email: " + response.getBody());
             }
-        } catch (Exception e) {
-            logger.error("Error occurred while sending email: {}", e.getMessage(), e);
-            return new EmailResponse(false, "Error occurred while sending email: " + e.getMessage());
-        }
+//        } catch (Exception e) {
+//            logger.error("Error occurred while sending email: {}", e.getMessage(), e);
+//            return new EmailResponse(false, "Error occurred while sending email: " + e.getMessage());
+//        }
     }
     
 	/**

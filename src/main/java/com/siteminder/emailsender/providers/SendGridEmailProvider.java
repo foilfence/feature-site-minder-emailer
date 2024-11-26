@@ -44,7 +44,7 @@ public class SendGridEmailProvider implements EmailProvider {
 	
     @PostConstruct
     public void init() {
-    	emailProviderRegistry.registerProvider("sendgrid", this);
+//    	emailProviderRegistry.registerProvider("sendgrid", this);
     }
 
 

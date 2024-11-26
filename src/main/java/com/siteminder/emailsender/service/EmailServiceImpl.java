@@ -33,14 +33,21 @@ public class EmailServiceImpl implements EmailService {
             return new EmailResponse(false, "No email provider available.");
         }
 
+        EmailResponse resp;
         try {
-            return provider.send(emailRequest);
+            resp = provider.send(emailRequest);
+//            if (resp.isSuccess()) {
+//                return resp;
+//            }
         } catch (Exception ex) {
             // Attempt fallback with all other providers
             for (EmailProvider fallback : providerRegistry.getAllProviders().values()) {
                 if (fallback != provider) {
                     try {
-                        return fallback.send(emailRequest);
+                        resp = fallback.send(emailRequest);
+                        if (resp.isSuccess()) {
+                            return resp;
+                        }
                     } catch (Exception ignored) {
                         // Log and continue
                     }
@@ -48,5 +55,7 @@ public class EmailServiceImpl implements EmailService {
             }
             return new EmailResponse(false, "Failed to send email via all providers: " + ex.getMessage());
         }
+
+        return resp;
     }
 }

@@ -28,7 +28,7 @@ Run: `docker build -t emailsender .`
 
 Once successful, your image will also show up on Docker Desktop:
 
-![](docker-image.png)
+![](images/docker-image.png)
 
 ### Uploading our docker image to Docker Hub
 Create an account on Docker Hub (same credentials as Docker works) and also create a repository
